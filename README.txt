@@ -1,1 +1,1 @@
-phus ngao
+phus ngao, phu oc cho
