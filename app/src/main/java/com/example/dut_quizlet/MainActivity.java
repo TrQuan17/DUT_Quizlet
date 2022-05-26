@@ -1,50 +1,160 @@
 package com.example.dut_quizlet;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.view.WindowManager;
+import android.view.Gravity;
+import android.view.MenuItem;
+import android.widget.GridLayout;
 
-import com.example.dut_quizlet.databinding.ActivityMainBinding;
+import com.example.dut_quizlet.fragment.AddFragment;
+import com.example.dut_quizlet.fragment.HomeFragment;
+import com.example.dut_quizlet.fragment.ProfileFragment;
+import com.example.dut_quizlet.fragment.RankFragment;
+import com.example.dut_quizlet.fragment.SearchFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+import com.google.android.material.navigation.NavigationView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    ActivityMainBinding binding;
+    private static final int FRAGMENT_HOME = 0;
+    private static final int FRAGMENT_SEARCH = 1;
+    private static final int FRAGMENT_RANK = 2;
+    private static final int FRAGMENT_ADD = 3;
+    private static final int FRAGMENT_PROFILE = 4;
+
+    private int mCurrentFragment = FRAGMENT_HOME;
+
+    private DrawerLayout mDrawerLayout;
+    private BottomNavigationView mBottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        replaceFragment(new HomeFragment());
+        setContentView(R.layout.activity_main);
 
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch (item.getItemId()){
-                case R.id.home:
-                    replaceFragment(new HomeFragment());
-                    break;
-                case R.id.search:
-                    replaceFragment(new SearchFragment());
-                    break;
-                case R.id.add:
-                    replaceFragment(new AddFragment());
-                    break;
-                case R.id.profile:
-                    replaceFragment(new ProfileFragment());
-                    break;
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        mBottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = findViewById(R.id.navigation_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+        replaceFragment(new HomeFragment());
+        navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+        mBottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
+
+        mBottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if (id == R.id.bottom_home) {
+                    openHomeFragment();
+                    navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
+                } else if (id == R.id.bottom_search) {
+                    openSearchFragment();
+                    navigationView.getMenu().findItem(R.id.nav_search).setChecked(true);
+                } else if (id == R.id.bottom_rank) {
+                    openRankFragment();
+                    navigationView.getMenu().findItem(R.id.nav_rank).setChecked(true);
+                } else if (id == R.id.bottom_add) {
+                    openAddFragment();
+                    navigationView.getMenu().findItem(R.id.nav_add).setChecked(true);
+                } else if (id == R.id.bottom_profile) {
+                    openProfileFragment();
+                    navigationView.getMenu().findItem(R.id.nav_my_profile).setChecked(true);
+                }
+                return true;
             }
-            return true;
         });
     }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_home){
+            openHomeFragment();
+            mBottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
+        } else if (id == R.id.nav_search) {
+            openSearchFragment();
+            mBottomNavigationView.getMenu().findItem(R.id.bottom_search).setChecked(true);
+        } else if (id == R.id.nav_rank){
+            openRankFragment();
+            mBottomNavigationView.getMenu().findItem(R.id.bottom_rank).setChecked(true);
+        } else if (id == R.id.nav_add) {
+            openAddFragment();
+            mBottomNavigationView.getMenu().findItem(R.id.bottom_add).setChecked(true);
+        } else if (id == R.id.nav_my_profile) {
+            openProfileFragment();
+            mBottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    private void openHomeFragment() {
+        if (mCurrentFragment != FRAGMENT_HOME) {
+            replaceFragment(new HomeFragment());
+            mCurrentFragment = FRAGMENT_HOME;
+        }
+    }
+
+    private void openSearchFragment() {
+        if (mCurrentFragment != FRAGMENT_SEARCH) {
+            replaceFragment(new SearchFragment());
+            mCurrentFragment = FRAGMENT_SEARCH;
+        }
+    }
+
+    private void openRankFragment() {
+        if (mCurrentFragment != FRAGMENT_RANK) {
+            replaceFragment(new RankFragment());
+            mCurrentFragment = FRAGMENT_RANK;
+        }
+    }
+
+    private void openAddFragment() {
+        if (mCurrentFragment != FRAGMENT_ADD) {
+            replaceFragment(new AddFragment());
+            mCurrentFragment = FRAGMENT_ADD;
+        }
+    }
+
+    private void openProfileFragment() {
+        if (mCurrentFragment != FRAGMENT_PROFILE) {
+            replaceFragment(new ProfileFragment());
+            mCurrentFragment = FRAGMENT_PROFILE;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){
+            mDrawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
     private void replaceFragment(Fragment fragment){
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame_layout, fragment);
-        fragmentTransaction.commit();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.content_frame, fragment);
+        transaction.commit();
     }
 }

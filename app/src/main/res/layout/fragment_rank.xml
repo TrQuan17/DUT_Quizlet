@@ -10,6 +10,6 @@
         android:layout_height="wrap_content"
         android:textColor="@color/white"
         android:textSize="20sp"
-        android:text="Profile Fragment"></TextView>
+        android:text="Rank Fragment"></TextView>
 
 </LinearLayout>
