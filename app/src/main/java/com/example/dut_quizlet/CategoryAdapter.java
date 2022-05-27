@@ -1,5 +1,6 @@
 package com.example.dut_quizlet;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,13 +32,22 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View myView;
         if (view == null) {
             myView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cat_item_layout, viewGroup, false);
         } else {
             myView = view;
         }
+
+        myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), TestActivity.class);
+                intent.putExtra("CAT_INDEX", i);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         TextView catName = myView.findViewById(R.id.cat_name);
         TextView noOfTests = myView.findViewById(R.id.no_of_tests);
