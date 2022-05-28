@@ -3,9 +3,12 @@ package com.quizlet_dut;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -19,6 +22,7 @@ public class SignUpActivity extends AppCompatActivity {
     private ActivitySignUpBinding binding;
     private FirebaseAuth mAuth;
     private String emailStr, passStr, confirmPassStr, nameStr;
+    private Dialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,21 +31,20 @@ public class SignUpActivity extends AppCompatActivity {
         View viewRoot = binding.getRoot();
         setContentView(viewRoot);
 
+        progressDialog = new Dialog(SignUpActivity.this);
+        progressDialog.setContentView(R.layout.dialog_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
         mAuth = FirebaseAuth.getInstance();
 
-        binding.buttonBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
+        binding.buttonBack.setOnClickListener( (view) -> {
+            finish();
         });
 
-        binding.buttonSignup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (validate()) {
-                    signUpNewUser();
-                }
+        binding.buttonSignup.setOnClickListener( (view)-> {
+            if (validate()) {
+                signUpNewUser();
             }
         });
     }
@@ -83,6 +86,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     private void signUpNewUser(){
+        progressDialog.show();
         mAuth.createUserWithEmailAndPassword(emailStr, passStr)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -96,6 +100,7 @@ public class SignUpActivity extends AppCompatActivity {
                     startActivity(intent);
                     SignUpActivity.this.finish();
                 } else {
+                    progressDialog.dismiss();
                     Toast.makeText(SignUpActivity.this, "Authentication failed",
                             Toast.LENGTH_SHORT).show();
 
