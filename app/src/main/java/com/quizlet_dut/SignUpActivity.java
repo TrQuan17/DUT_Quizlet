@@ -94,11 +94,25 @@ public class SignUpActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SignUpActivity.this, "Sign Up  Successfull",
                             Toast.LENGTH_SHORT).show();
+                    DbQuery.createUserData(emailStr, nameStr, new MyCompeleteListenner() {
 
-                    Intent intent = new Intent(SignUpActivity.this,
-                            MainActivity.class);
-                    startActivity(intent);
-                    SignUpActivity.this.finish();
+                        @Override
+                        public void onSuccess() {
+                            progressDialog.dismiss();
+                            Intent intent = new Intent(SignUpActivity.this,
+                                    MainActivity.class);
+                            startActivity(intent);
+                            SignUpActivity.this.finish();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(SignUpActivity.this, "Something went wrong! Please Try Again Later", Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
+                        }
+                    });
+
+
                 } else {
                     progressDialog.dismiss();
                     Toast.makeText(SignUpActivity.this, "Authentication failed",
