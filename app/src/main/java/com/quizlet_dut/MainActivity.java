@@ -1,4 +1,4 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -14,11 +14,11 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.GridLayout;
 
-import com.example.dut_quizlet.fragment.AddFragment;
-import com.example.dut_quizlet.fragment.HomeFragment;
-import com.example.dut_quizlet.fragment.ProfileFragment;
-import com.example.dut_quizlet.fragment.RankFragment;
-import com.example.dut_quizlet.fragment.SearchFragment;
+import com.quizlet_dut.fragment.AddFragment;
+import com.quizlet_dut.fragment.HomeFragment;
+import com.quizlet_dut.fragment.ProfileFragment;
+import com.quizlet_dut.fragment.RankFragment;
+import com.quizlet_dut.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
@@ -41,16 +41,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
-                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawerLayout.addDrawerListener(toggle);
-        toggle.syncState();
+//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+//                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+//        mDrawerLayout.addDrawerListener(toggle);
+//        toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);

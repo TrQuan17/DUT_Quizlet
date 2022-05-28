@@ -1,4 +1,4 @@
-package com.example.dut_quizlet.fragment;
+package com.quizlet_dut.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,9 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.dut_quizlet.CategoryAdapter;
-import com.example.dut_quizlet.CategoryModel;
-import com.example.dut_quizlet.R;
+import com.quizlet_dut.CategoryAdapter;
+import com.quizlet_dut.CategoryModel;
+import com.quizlet_dut.R;
 
 import java.util.ArrayList;
 import java.util.List;
