@@ -1,4 +1,4 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -9,10 +9,10 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class CategoryAdapter extends BaseAdapter {
-    private List<CategoryModel> cat_list;
+public class    CategoryAdapter extends BaseAdapter {
+    private List<com.quizlet_dut.CategoryModel> cat_list;
 
-    public CategoryAdapter(List<CategoryModel> cat_list) {
+    public CategoryAdapter(List<com.quizlet_dut.CategoryModel> cat_list) {
         this.cat_list = cat_list;
     }
 

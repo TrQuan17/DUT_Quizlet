@@ -1,4 +1,4 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
 
-import com.example.dut_quizlet.fragment.HomeFragment;
+import com.quizlet_dut.fragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,7 @@ public class TestActivity extends AppCompatActivity {
 
         int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
 
-        getSupportActionBar().setTitle(HomeFragment.catList.get(cat_index).getName());
+        getSupportActionBar().setTitle(DbQuery.g_catList.get(cat_index).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         testView = findViewById(R.id.test_recycler_view);

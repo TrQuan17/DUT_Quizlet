@@ -1,4 +1,4 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
 import org.junit.Test;
 

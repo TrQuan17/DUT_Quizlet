@@ -1,4 +1,4 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
 import android.view.LayoutInflater;
 import android.view.MenuItem;
