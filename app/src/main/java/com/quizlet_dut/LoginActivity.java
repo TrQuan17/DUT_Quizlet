@@ -99,7 +99,7 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_SHORT).show();
 
-                            DbQuery.loadCategories(new MyCompeleteListenner() {
+                            DbQuery.loadData(new MyCompeleteListenner() {
                                 @Override
                                 public void onSuccess() {
                                     progressDialog.dismiss();
@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
                                 DbQuery.createUserData(user.getEmail(), user.getDisplayName(), new MyCompeleteListenner() {
                                     @Override
                                     public void onSuccess() {
-                                        DbQuery.loadCategories(new MyCompeleteListenner() {
+                                        DbQuery.loadData(new MyCompeleteListenner() {
                                               @Override
                                             public void onSuccess() {
                                                 progressDialog.dismiss();
@@ -188,7 +188,7 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             } else {
-                                DbQuery.loadCategories(new MyCompeleteListenner() {
+                                DbQuery.loadData(new MyCompeleteListenner() {
                                     @Override
                                     public void onSuccess() {
                                         progressDialog.dismiss();

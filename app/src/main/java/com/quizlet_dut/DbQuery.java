@@ -4,15 +4,19 @@ import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
+import com.quizlet_dut.fragment.ProfileModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +26,8 @@ public class DbQuery {
     // Access a Cloud Firestore instance from your Activity
     public static FirebaseFirestore g_firestore;
     public static List<CategoryModel> g_catList = new ArrayList<>();
+
+    public static ProfileModel myProfileModel = new ProfileModel("NA", null);
 
     public static void createUserData(String email, String name, MyCompeleteListenner compeleteListenner) {
         Map<String, Object> userData = new ArrayMap<>();
@@ -50,6 +56,26 @@ public class DbQuery {
                 });
     }
 
+    public static void getUserData(MyCompeleteListenner myCompeleteListenner){
+        g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        myProfileModel.setName(documentSnapshot.getString("NAME"));
+                        myProfileModel.setEmail(documentSnapshot.getString("EMAIL_ID"));
+
+                        myCompeleteListenner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        myCompeleteListenner.onFailure();
+                    }
+                });
+    }
+
     public static void loadCategories(final MyCompeleteListenner myCompeleteListenner){
         g_catList.clear();
 
@@ -66,7 +92,6 @@ public class DbQuery {
                         QueryDocumentSnapshot catListDoc = docList.get("Categories");
 
                         long catCount = catListDoc.getLong("COUNT");
-                        System.out.println(catCount );
 
                         for (int i = 1; i <= catCount; i++) {
                             String catID = catListDoc.getString("CAT" + String.valueOf(i) + "_ID");
@@ -90,4 +115,17 @@ public class DbQuery {
                 });
     }
 
+    public static void loadData(final MyCompeleteListenner myCompeleteListenner){
+        loadCategories(new MyCompeleteListenner() {
+            @Override
+            public void onSuccess() {
+                getUserData(myCompeleteListenner);
+            }
+
+            @Override
+            public void onFailure() {
+                myCompeleteListenner.onFailure();
+            }
+        });
+    }
 }
