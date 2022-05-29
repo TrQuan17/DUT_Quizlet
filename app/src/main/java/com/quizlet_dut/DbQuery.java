@@ -26,6 +26,9 @@ public class DbQuery {
     // Access a Cloud Firestore instance from your Activity
     public static FirebaseFirestore g_firestore;
     public static List<CategoryModel> g_catList = new ArrayList<>();
+    public static int g_selected_cat_index = 0;
+
+    public static List<TestModel> g_testList = new ArrayList<>();
 
     public static ProfileModel myProfileModel = new ProfileModel("NA", null);
 
@@ -127,5 +130,36 @@ public class DbQuery {
                 myCompeleteListenner.onFailure();
             }
         });
+    }
+
+    public static void loadTestData(final MyCompeleteListenner myCompeleteListenner){
+        g_testList.clear();
+
+        g_firestore.collection("QUIZ").document(g_catList.get(g_selected_cat_index).getDocID())
+                .collection("TESTS_LIST").document("TESTS_INFO")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        int noOfTest = g_catList.get(g_selected_cat_index).getNoOfTests();
+
+                        for (int i = 1;  i <= noOfTest; i++){
+                            g_testList.add(new TestModel(
+                                    documentSnapshot.getString("TEST" + String.valueOf(i) + "_ID"),
+                                    0,
+                                    documentSnapshot.getLong("TEST" + String.valueOf(i) + "_TIME").intValue()
+                            ));
+                        }
+
+
+                        myCompeleteListenner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        myCompeleteListenner.onFailure();
+                    }
+                });
     }
 }
