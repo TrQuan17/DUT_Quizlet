@@ -1,5 +1,6 @@
 package com.quizlet_dut;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -51,6 +52,15 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHoder> {
             testNo = itemView.findViewById(R.id.testNo);
             topScore = itemView.findViewById(R.id.scoreText);
             progressBar = itemView.findViewById(R.id.testProgressBar);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(itemView.getContext(), QuestionsActivity.class);
+                    itemView.getContext().startActivity(intent);
+
+                }
+            });
         }
 
         private void setData(int pos, int progress){

@@ -8,10 +8,16 @@
         <entry key="..\:/CODE/Java/Lap_Trinh_Di_Dong/Quizlet_DUT/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/CODE/Java/Lap_Trinh_Di_Dong/Quizlet_DUT/app/src/main/res/layout/activity_sign_up.xml" value="0.22" />
         <entry key="..\:/CODE/Java/Lap_Trinh_Di_Dong/Quizlet_DUT/app/src/main/res/layout/fragment_add.xml" value="0.20885416666666667" />
+        <entry key="app/src/main/res/drawable/button_border.xml" value="0.146" />
         <entry key="app/src/main/res/drawable/circle.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_baseline_apps_24.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_24.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_baseline_bookmark_border_24.xml" value="0.146" />
+        <entry key="app/src/main/res/drawable/ic_baseline_chevron_left_24.xml" value="0.214" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.146" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_questions.xml" value="0.4" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/cat_item_layout.xml" value="0.32135416666666666" />
