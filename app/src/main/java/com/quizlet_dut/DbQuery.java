@@ -29,6 +29,9 @@ public class DbQuery {
     public static int g_selected_cat_index = 0;
 
     public static List<TestModel> g_testList = new ArrayList<>();
+    public static int g_selected_test_index = 0;
+
+    public static List<QuestionModel> g_quesList = new ArrayList<>();
 
     public static ProfileModel myProfileModel = new ProfileModel("NA", null);
 
@@ -118,6 +121,37 @@ public class DbQuery {
                 });
     }
 
+    public static void loadQuestions(final MyCompeleteListenner compeleteListenner) {
+        g_quesList.clear();
+        g_firestore.collection("Questions")
+                .whereEqualTo("CATEGORY", g_catList.get(g_selected_cat_index).getDocID())
+                .whereEqualTo("TEST", g_testList.get(g_selected_test_index).getTestID())
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for(DocumentSnapshot doc : queryDocumentSnapshots) {
+                            g_quesList.add(new QuestionModel(
+                                    doc.getString("QUESTION"),
+                                    doc.getString("A"),
+                                    doc.getString("B"),
+                                    doc.getString("C"),
+                                    doc.getString("D"),
+                                    doc.getLong("ANSWER").intValue()
+                            ));
+                        }
+
+                        compeleteListenner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        compeleteListenner.onFailure();
+                    }
+                });
+    }
+
     public static void loadData(final MyCompeleteListenner myCompeleteListenner){
         loadCategories(new MyCompeleteListenner() {
             @Override
@@ -162,4 +196,6 @@ public class DbQuery {
                     }
                 });
     }
+
+
 }
