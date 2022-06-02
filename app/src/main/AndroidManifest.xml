@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.dut_quizlet">
+    package="com.quizlet_dut">
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,18 @@
         android:theme="@style/Theme.DUT_Quizlet"
         tools:targetApi="31">
         <activity
+            android:name=".QuestionsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
         <activity
@@ -25,6 +37,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".StartTestActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

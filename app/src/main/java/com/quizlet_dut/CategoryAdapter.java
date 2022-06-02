@@ -1,5 +1,6 @@
-package com.example.dut_quizlet;
+package com.quizlet_dut;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter {
-    private List<CategoryModel> cat_list;
+    private List<com.quizlet_dut.CategoryModel> cat_list;
 
-    public CategoryAdapter(List<CategoryModel> cat_list) {
+    public CategoryAdapter(List<com.quizlet_dut.CategoryModel> cat_list) {
         this.cat_list = cat_list;
     }
 
@@ -31,13 +32,23 @@ public class CategoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
+    public View getView(final int i, View view, ViewGroup viewGroup) {
         View myView;
         if (view == null) {
             myView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cat_item_layout, viewGroup, false);
         } else {
             myView = view;
         }
+
+        myView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DbQuery.g_selected_cat_index = i;
+                Intent intent = new Intent(view.getContext(), TestActivity.class);
+//                intent.putExtra("CAT_INDEX", i);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         TextView catName = myView.findViewById(R.id.cat_name);
         TextView noOfTests = myView.findViewById(R.id.no_of_tests);

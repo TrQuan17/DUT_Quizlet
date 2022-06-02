@@ -5,12 +5,6 @@ pluginManagement {
         mavenCentral()
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
-rootProject.name = "DUT_Quizlet"
+
+rootProject.name = "Quizlet_DUT"
 include ':app'
