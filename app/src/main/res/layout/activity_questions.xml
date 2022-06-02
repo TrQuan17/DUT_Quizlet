@@ -21,6 +21,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_quesID"
             android:text="1/25"
             android:layout_weight="1"
             android:textColor="@color/white"
@@ -31,6 +32,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_timer"
             android:text="20: 15 min"
             android:layout_weight="1"
             android:textColor="@color/green"
@@ -41,6 +43,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="36dp"
+            android:id="@+id/submitB"
             android:text="Submit"
             android:background="@drawable/button_border"
             android:backgroundTint="@android:color/holo_orange_light"
@@ -51,6 +54,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:id="@+id/ll4"
         android:orientation="horizontal"
         android:padding="12dp"
         android:background="@color/colorPrimaryDark"
@@ -60,6 +64,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/qa_catName"
             android:text="PHP"
             android:layout_weight="1"
             android:textColor="@color/white"
@@ -69,6 +74,7 @@
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
+            android:id="@+id/qa_bookmark"
             android:layout_weight="1"
             android:src="@drawable/ic_baseline_bookmark_border_24">
         </ImageView>
@@ -76,6 +82,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/ques_list_gridB"
             android:layout_weight="1"
             android:src="@drawable/ic_baseline_apps_24">
         </ImageView>
@@ -84,6 +91,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:id="@+id/ll3"
         android:orientation="horizontal"
         android:padding="12dp"
         android:gravity="center"
@@ -95,6 +103,7 @@
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:id="@+id/prev_quesB"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="24dp"
             android:background="@color/colorPrimaryDark"
@@ -104,6 +113,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="36dp"
+            android:id="@+id/clear_selB"
             android:background="@drawable/button_border"
             android:text="Clear Selection"
             android:textColor="@color/white">
@@ -113,6 +123,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="36dp"
+            android:id="@+id/markB"
             android:layout_marginLeft="8dp"
             android:background="@drawable/button_border"
             android:text="Mark for Review"
@@ -123,6 +134,7 @@
         <ImageButton
             android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:id="@+id/next_quesB"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="8dp"
             android:background="@color/colorPrimaryDark"
@@ -131,5 +143,17 @@
         </ImageButton>
 
     </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:id="@+id/questions_view"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/ll3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll4"
+        >
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

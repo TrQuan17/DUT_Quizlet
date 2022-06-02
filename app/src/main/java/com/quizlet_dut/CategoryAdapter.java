@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-public class    CategoryAdapter extends BaseAdapter {
+public class CategoryAdapter extends BaseAdapter {
     private List<com.quizlet_dut.CategoryModel> cat_list;
 
     public CategoryAdapter(List<com.quizlet_dut.CategoryModel> cat_list) {
