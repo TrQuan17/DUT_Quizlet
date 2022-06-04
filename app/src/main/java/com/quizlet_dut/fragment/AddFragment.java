@@ -1,5 +1,6 @@
 package com.quizlet_dut.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.quizlet_dut.Add_Question;
 import com.quizlet_dut.R;
 
 import java.util.HashMap;
@@ -29,7 +31,7 @@ public class AddFragment extends Fragment {
     FirebaseFirestore firestore;
 
     EditText txtNumberOfTest,txtCategory;
-    Button btnAddCategory;
+    Button btnAddCategory,btnOpenAddQuestion;;
     String id_category = "";
     static int count = 0;
     @Nullable
@@ -43,6 +45,15 @@ public class AddFragment extends Fragment {
         txtCategory = view.findViewById(R.id.txt_category);
 
         count = GetCountFromCategories();
+
+        btnOpenAddQuestion = view.findViewById(R.id.btn_openAddQuestion);
+        btnOpenAddQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Add_Question.class);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         btnAddCategory = view.findViewById(R.id.btn_addCategory);
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
