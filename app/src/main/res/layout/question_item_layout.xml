@@ -26,7 +26,7 @@
     </TextView>
 
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/optionA"
@@ -41,9 +41,9 @@
 
         >
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/optionB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -56,9 +56,9 @@
         android:textSize="16sp"
         android:translationZ="3dp">
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/optionC"
@@ -72,9 +72,9 @@
         android:stateListAnimator="@null"
         >
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/optionD"
@@ -88,6 +88,6 @@
         android:stateListAnimator="@null"
         >
 
-    </Button>
+    </androidx.appcompat.widget.AppCompatButton>
 
 </LinearLayout>
