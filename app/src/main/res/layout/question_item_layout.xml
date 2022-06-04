@@ -25,6 +25,7 @@
 
     </TextView>
 
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -37,23 +38,23 @@
         android:elevation="3dp"
         android:translationZ="3dp"
         android:stateListAnimator="@null"
+
         >
 
     </Button>
 
     <Button
+        android:id="@+id/optionB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/optionB"
         android:layout_margin="8dp"
-        android:textColor="@android:color/black"
-        android:text="Option B"
-        android:textSize="16sp"
         android:background="@drawable/unselected_btn"
         android:elevation="3dp"
-        android:translationZ="3dp"
         android:stateListAnimator="@null"
-        >
+        android:text="Option B"
+        android:textColor="@android:color/black"
+        android:textSize="16sp"
+        android:translationZ="3dp">
 
     </Button>
 

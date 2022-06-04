@@ -50,7 +50,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
 
 
         private TextView ques;
-        private Button optionA, optionB, optionC, optionD;
+        private Button optionA, optionB, optionC, optionD, preSelectedB;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             ques = itemView.findViewById(R.id.tv_question);
@@ -58,6 +58,7 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             optionB = itemView.findViewById(R.id.optionB);
             optionC = itemView.findViewById(R.id.optionC);
             optionD = itemView.findViewById(R.id.optionD);
+            preSelectedB = null;
         }
 
         private void SetData(final int pos) {
@@ -66,6 +67,76 @@ public class QuestionsAdapter extends RecyclerView.Adapter<QuestionsAdapter.View
             optionB.setText(questionList.get(pos).getOptionB());
             optionC.setText(questionList.get(pos).getOptionC());
             optionD.setText(questionList.get(pos).getOptionD());
+
+            setOption(optionA, 1, pos);
+            setOption(optionB, 2, pos);
+            setOption(optionC, 3, pos);
+            setOption(optionD, 4, pos);
+
+
+
+            optionA.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectOption(optionA, 1, pos);
+                }
+            });
+            optionB.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    selectOption(optionB, 2, pos);
+                }
+            });
+
+            optionC.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectOption(optionC, 3, pos);
+                }
+            });
+
+            optionD.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    selectOption(optionD, 4, pos);
+                }
+            });
+
+
+        }
+
+        private void selectOption(Button btn, int option_num, int quesID) {
+
+            if(preSelectedB == null) {
+                btn.setBackgroundResource(R.drawable.selected_btn);
+                DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
+                preSelectedB = btn;
+            }
+            else {
+                if(preSelectedB.getId() == btn.getId()) {
+                    btn.setBackgroundResource(R.drawable.unselected_btn);
+                    DbQuery.g_quesList.get(quesID).setSelectedAns(-1);
+                    preSelectedB = null;
+                }
+                else {
+                    preSelectedB.setBackgroundResource(R.drawable.unselected_btn);
+                    btn.setBackgroundResource(R.drawable.selected_btn);
+                    DbQuery.g_quesList.get(quesID).setSelectedAns(option_num);
+
+                    preSelectedB = btn;
+                }
+
+            }
+        }
+
+        private void setOption(Button btn, int option_num, int quesID) {
+            if(DbQuery.g_quesList.get(quesID).getSelectedAns()==option_num) {
+                btn.setBackgroundResource(R.drawable.selected_btn);
+            }
+            else {
+                btn.setBackgroundResource(R.drawable.unselected_btn);
+            }
         }
     }
 

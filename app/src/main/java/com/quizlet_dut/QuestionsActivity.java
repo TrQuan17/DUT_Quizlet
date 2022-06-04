@@ -30,6 +30,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private ImageButton preQuesB, nextQuesB;
     private ImageView quesListB;
     private int quesID;
+    QuestionsAdapter quesAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,7 +38,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
         init();
 
-        QuestionsAdapter quesAdapter = new QuestionsAdapter(g_quesList);
+        quesAdapter = new QuestionsAdapter(g_quesList);
         questionview.setAdapter(quesAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(QuestionsActivity.this);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -113,6 +114,14 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
             }
         });
+        clearSelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                g_quesList.get(quesID).setSelectedAns(-1);
+                quesAdapter.notifyDataSetChanged();
+            }
+        });
+
     }
     private void startTime() {
         long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
