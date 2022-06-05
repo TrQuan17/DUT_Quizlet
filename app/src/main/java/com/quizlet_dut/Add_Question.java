@@ -67,7 +67,6 @@ public class Add_Question extends AppCompatActivity {
                 String B = txtB.getText().toString();
                 String C = txtC.getText().toString();
                 String D = txtD.getText().toString();
-                String answer = txtAnswer.getText().toString();
                 String question = txtQuestion.getText().toString();
 
                 int indexOfCategoryChoosen =  listCategory.indexOf(spinnerCategory.getSelectedItem());
@@ -77,7 +76,15 @@ public class Add_Question extends AppCompatActivity {
                 if(CheckEmptyInfor() == false){
                     Toast.makeText(Add_Question.this, "Please insert full information",Toast.LENGTH_SHORT).show();
                 }
+                else if(isNumeric(txtAnswer.getText().toString()) == false){
+                    Toast.makeText(Add_Question.this, "Answer must be int and value between(1-4)",Toast.LENGTH_SHORT).show();
+                }
+                else if((isNumeric(txtAnswer.getText().toString()) == true) && ((Integer.valueOf(txtAnswer.getText().toString()) > 4)
+                        || (Integer.valueOf(txtAnswer.getText().toString()) < 1))){
+                    Toast.makeText(Add_Question.this, "Answer must be int and value between(1-4)",Toast.LENGTH_SHORT).show();
+                }
                 else{
+                    int answer = Integer.parseInt(txtAnswer.getText().toString());
                     postDataToFirestore(A,B,C,D,question,answer,test,category);
                 }
             }
@@ -93,6 +100,11 @@ public class Add_Question extends AppCompatActivity {
         txtD.setText("");
         txtAnswer.setText("");
         txtQuestion.setText("");
+    }
+
+    // hàm kiểm tra dữ liệu nhập vào có phải là số hay không
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
     }
 
     private boolean CheckEmptyInfor(){
@@ -173,7 +185,7 @@ public class Add_Question extends AppCompatActivity {
     }
 
     // đẩy dữ liệu lên FireStore
-    private void postDataToFirestore(String A, String B,String C,String D,String question,String answer,String test,String category){
+    private void postDataToFirestore(String A, String B,String C,String D,String question,int answer,String test,String category){
 
         Map<String, Object> data = new HashMap<>();
         data.put("A",A);

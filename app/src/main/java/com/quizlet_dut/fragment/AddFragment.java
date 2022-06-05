@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -59,7 +60,17 @@ public class AddFragment extends Fragment {
         btnAddCategory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                postDataToFirestore(txtCategory.getText().toString(), Integer.parseInt(txtNumberOfTest.getText().toString()));
+                if(CheckEmptyInfor() == false){
+                    Toast.makeText(view.getContext(), "Please insert full information",Toast.LENGTH_SHORT).show();
+                }
+                else if(isNumeric(txtNumberOfTest.getText().toString()) == false){
+                    Toast.makeText(getActivity(), "Number of test must be int ",Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    postDataToFirestore(txtCategory.getText().toString(), Integer.parseInt(txtNumberOfTest.getText().toString()));
+                    clearText();
+                }
+
             }
         });
         return view;
@@ -78,13 +89,15 @@ public class AddFragment extends Fragment {
 
                         firestore.collection("QUIZ").document(documentReference.getId()).update("CAT_ID",documentReference.getId());
                         id_category = String.valueOf(documentReference.getId());
-                        Log.d("Debug", "DocumentSnapshot added with ID: " + id_category);
+//                        Log.d("Debug", "DocumentSnapshot added with ID: " + id_category);
+                        Toast.makeText(getActivity(), "Add Success",Toast.LENGTH_SHORT).show();
                         UpdateNewCategoryAndCountToCategories(id_category);
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getActivity(), "Add Fail",Toast.LENGTH_SHORT).show();
                         Log.w("Debug", "Error adding document", e);
                     }
                 });
@@ -107,7 +120,7 @@ public class AddFragment extends Fragment {
                 if (task.isSuccessful()) {
                     if (document.exists()) {
                         count = objectToInt(document.getData().get("COUNT"));
-                        Log.d("Debug", "DocumentSnapshot Count of Categories: " + document.getData().get("COUNT"));
+//                        Log.d("Debug", "DocumentSnapshot Count of Categories: " + document.getData().get("COUNT"));
                     } else {
                         Log.d("Debug", "No such document");
                     }
@@ -123,10 +136,29 @@ public class AddFragment extends Fragment {
     public void UpdateNewCategoryAndCountToCategories(String id_Cat){
         count++;
         String CAT_ID = "CAT"+String.valueOf(count)+"_ID";
-        Log.d("Debug", "DocumentSnapshot CAT_ID: "+CAT_ID);
-        Log.d("Debug", "DocumentSnapshot id_cat: "+id_Cat);
+//        Log.d("Debug", "DocumentSnapshot CAT_ID: "+CAT_ID);
+//        Log.d("Debug", "DocumentSnapshot id_cat: "+id_Cat);
         firestore.collection("QUIZ").document("Categories").update("COUNT",count);
         firestore.collection("QUIZ").document("Categories").update(CAT_ID,id_Cat);
     }
 
+    private void clearText(){
+        txtCategory.setText("");
+        txtNumberOfTest.setText("");
+    }
+
+    private boolean CheckEmptyInfor(){
+
+        String empty = "";
+        if( txtCategory.getText().toString().equals(empty) || txtNumberOfTest.getText().toString().equals(empty)) {
+
+            return false;
+        }
+        return true;
+    }
+
+    // hàm kiểm tra dữ liệu nhập vào có phải là số hay không
+    public static boolean isNumeric(String str) {
+        return str.matches("-?\\d+(\\.\\d+)?");
+    }
 }
