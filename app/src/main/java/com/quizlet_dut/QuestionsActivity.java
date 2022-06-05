@@ -4,6 +4,8 @@ import static com.quizlet_dut.DbQuery.*;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,10 +33,12 @@ public class QuestionsActivity extends AppCompatActivity {
     private ImageView quesListB;
     private int quesID;
     QuestionsAdapter quesAdapter;
+    private DrawerLayout drawerLayout;
+    private ImageButton drawCloseB;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_questions);
+        setContentView(R.layout.question_list_layout);
 
         init();
 
@@ -63,7 +67,9 @@ public class QuestionsActivity extends AppCompatActivity {
         preQuesB = findViewById(R.id.prev_quesB);
         nextQuesB = findViewById(R.id.next_quesB);
         quesListB = findViewById(R.id.ques_list_gridB);
+        drawerLayout = findViewById(R.id.drawer_layout);
 
+        drawCloseB = findViewById(R.id.drawerClose);
         quesID =0;
 
         tvQuesID.setText("1/" + String.valueOf(g_quesList.size()));
@@ -119,6 +125,23 @@ public class QuestionsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 g_quesList.get(quesID).setSelectedAns(-1);
                 quesAdapter.notifyDataSetChanged();
+            }
+        });
+        quesListB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.openDrawer(GravityCompat.END);
+                }
+            }
+        });
+
+        drawCloseB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(drawerLayout.isDrawerOpen(GravityCompat.END)) {
+                    drawerLayout.closeDrawer(GravityCompat.END);
+                }
             }
         });
 
