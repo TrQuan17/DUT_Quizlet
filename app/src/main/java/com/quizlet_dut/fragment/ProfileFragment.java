@@ -25,6 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.quizlet_dut.DbQuery;
 import com.quizlet_dut.LoginActivity;
 import com.quizlet_dut.MainActivity;
+import com.quizlet_dut.MyProfileActivity;
 import com.quizlet_dut.R;
 
 public class ProfileFragment extends Fragment {
@@ -85,6 +86,8 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
+                Intent intent = new Intent(getContext(), MyProfileActivity.class);
+                startActivity(intent);
             }
         });
 
