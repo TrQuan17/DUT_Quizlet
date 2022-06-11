@@ -4,10 +4,8 @@ import android.util.ArrayMap;
 
 import androidx.annotation.NonNull;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -16,7 +14,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.WriteBatch;
-import com.quizlet_dut.fragment.ProfileModel;
+import com.quizlet_dut.Models.CategoryModel;
+import com.quizlet_dut.Models.QuestionModel;
+import com.quizlet_dut.Models.RankModel;
+import com.quizlet_dut.Models.TestModel;
+import com.quizlet_dut.Models.ProfileModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class DbQuery {
     public static List<QuestionModel> g_quesList = new ArrayList<>();
 
     public static ProfileModel myProfileModel = new ProfileModel("NA", null);
+    public static RankModel myPerformance = new RankModel(0, -1);
 
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
@@ -76,6 +79,8 @@ public class DbQuery {
                         myProfileModel.setName(documentSnapshot.getString("NAME"));
                         myProfileModel.setEmail(documentSnapshot.getString("EMAIL_ID"));
 
+                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+
                         myCompeleteListenner.onSuccess();
                     }
                 })
@@ -83,6 +88,40 @@ public class DbQuery {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         myCompeleteListenner.onFailure();
+                    }
+                });
+    }
+
+    public static void saveResult(int score, MyCompeleteListenner compeleteListenner) {
+        WriteBatch batch = g_firestore.batch();
+
+        DocumentReference userDoc = g_firestore.collection("USERS")
+                .document(FirebaseAuth.getInstance().getUid());
+
+        batch.update(userDoc, "TOTAL_SCORE", score);
+
+        if(score > g_testList.get(g_selected_test_index).getTopScore()) {
+            DocumentReference scoreDoc = userDoc.collection("USER_DATA")
+                    .document("MY_SCORES");
+            batch.update(scoreDoc, g_testList.get(g_selected_test_index).getTestID(), score);
+        }
+
+        batch.commit()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        if(score > g_testList.get(g_selected_test_index).getTopScore()) {
+                            g_testList.get(g_selected_test_index).setTopScore(score);
+                        }
+
+                        myPerformance.setScore(score);
+                        compeleteListenner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        compeleteListenner.onFailure();
                     }
                 });
     }

@@ -10,13 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.quizlet_dut.CategoryAdapter;
-import com.quizlet_dut.CategoryModel;
+import com.quizlet_dut.Adapters.CategoryAdapter;
 import com.quizlet_dut.DbQuery;
 import com.quizlet_dut.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
 

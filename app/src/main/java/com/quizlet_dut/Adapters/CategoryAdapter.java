@@ -1,4 +1,4 @@
-package com.quizlet_dut;
+package com.quizlet_dut.Adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -7,12 +7,17 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.quizlet_dut.DbQuery;
+import com.quizlet_dut.Models.CategoryModel;
+import com.quizlet_dut.R;
+import com.quizlet_dut.TestActivity;
+
 import java.util.List;
 
 public class CategoryAdapter extends BaseAdapter {
-    private List<com.quizlet_dut.CategoryModel> cat_list;
+    private List<CategoryModel> cat_list;
 
-    public CategoryAdapter(List<com.quizlet_dut.CategoryModel> cat_list) {
+    public CategoryAdapter(List<CategoryModel> cat_list) {
         this.cat_list = cat_list;
     }
 

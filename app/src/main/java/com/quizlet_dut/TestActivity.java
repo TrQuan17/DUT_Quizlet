@@ -10,13 +10,9 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.quizlet_dut.fragment.HomeFragment;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.quizlet_dut.Adapters.TestAdapter;
 
 public class TestActivity extends AppCompatActivity {
 

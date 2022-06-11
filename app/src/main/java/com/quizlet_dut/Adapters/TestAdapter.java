@@ -1,8 +1,7 @@
-package com.quizlet_dut;
+package com.quizlet_dut.Adapters;
 
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
@@ -10,6 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.quizlet_dut.DbQuery;
+import com.quizlet_dut.Models.TestModel;
+import com.quizlet_dut.R;
+import com.quizlet_dut.StartTestActivity;
 
 import java.util.List;
 

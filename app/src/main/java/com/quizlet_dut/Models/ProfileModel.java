@@ -1,4 +1,4 @@
-package com.quizlet_dut.fragment;
+package com.quizlet_dut.Models;
 
 public class ProfileModel {
     String name;

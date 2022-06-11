@@ -1,4 +1,4 @@
-package com.quizlet_dut;
+package com.quizlet_dut.Models;
 
 public class QuestionModel {
     private String question;

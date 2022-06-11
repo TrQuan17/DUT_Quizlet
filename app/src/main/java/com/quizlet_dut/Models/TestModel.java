@@ -1,4 +1,4 @@
-package com.quizlet_dut;
+package com.quizlet_dut.Models;
 
 public class TestModel {
     private String testID;
@@ -8,6 +8,18 @@ public class TestModel {
     public TestModel(String testID, int topScore, int time) {
         this.testID = testID;
         this.topScore = topScore;
+        this.time = time;
+    }
+
+    public void setTestID(String testID) {
+        this.testID = testID;
+    }
+
+    public void setTopScore(int topScore) {
+        this.topScore = topScore;
+    }
+
+    public void setTime(int time) {
         this.time = time;
     }
 

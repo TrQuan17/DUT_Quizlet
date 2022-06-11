@@ -1,4 +1,4 @@
-package com.quizlet_dut;
+package com.quizlet_dut.Adapters;
 
 import static com.quizlet_dut.DbQuery.ANSWERED;
 import static com.quizlet_dut.DbQuery.REVIEW;
@@ -14,7 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.quizlet_dut.databinding.QuestionItemLayoutBinding;
+import com.quizlet_dut.DbQuery;
+import com.quizlet_dut.Models.QuestionModel;
+import com.quizlet_dut.R;
 
 import java.util.List;
 
