@@ -3,6 +3,7 @@ package com.quizlet_dut;
 import static com.quizlet_dut.DbQuery.*;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -11,7 +12,7 @@ import androidx.recyclerview.widget.PagerSnapHelper;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SnapHelper;
 
-import android.os.AsyncTask;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
@@ -39,6 +40,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private GridView quesListGV;
     private ImageView markImage;
     private QuestionGridAdapter gridAdapter;
+    private CountDownTimer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,8 +87,7 @@ public class QuestionsActivity extends AppCompatActivity {
         tvQuesID.setText("1/" + String.valueOf(g_quesList.size()));
         catNameTV.setText(g_catList.get(g_selected_cat_index).getName());
 
-
-
+        g_quesList.get(0).setStatus(UNANSWERED);
     }
     private void setSnapHelper() {
         SnapHelper snapHelper = new PagerSnapHelper();
@@ -102,6 +103,12 @@ public class QuestionsActivity extends AppCompatActivity {
 
                 if(g_quesList.get(quesID).getStatus() == NOT_VISITED) {
                     g_quesList.get(quesID).setStatus(UNANSWERED);
+                }
+
+                if(g_quesList.get(quesID).getStatus() == REVIEW) {
+                    markImage.setVisibility(View.VISIBLE);
+                } else {
+                    markImage.setVisibility(View.GONE);
                 }
 
                 tvQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
@@ -138,6 +145,11 @@ public class QuestionsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 g_quesList.get(quesID).setSelectedAns(-1);
+
+                g_quesList.get(quesID).setStatus(UNANSWERED);
+                markImage.setVisibility(View.GONE);
+
+
                 quesAdapter.notifyDataSetChanged();
             }
         });
@@ -179,6 +191,46 @@ public class QuestionsActivity extends AppCompatActivity {
 
             }
         });
+
+        sumitB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitTest();
+            }
+        });
+    }
+
+    private void submitTest() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(QuestionsActivity.this);
+        builder.setCancelable(true);
+
+        View view = getLayoutInflater().inflate(R.layout.alert_dialog_layout,null);
+        Button cancelB = view.findViewById(R.id.cancel_button);
+        Button confirmB = view.findViewById(R.id.confirm_button);
+
+        builder.setView(view);
+
+        AlertDialog alertDialog = builder.create();
+        cancelB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+
+        confirmB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer.cancel();
+                alertDialog.dismiss();
+
+                Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
+            }
+        });
+
+        alertDialog.show();
     }
 
     public void goToQuestion(int position) {
@@ -191,7 +243,7 @@ public class QuestionsActivity extends AppCompatActivity {
 
     private void startTime() {
         long totalTime = g_testList.get(g_selected_test_index).getTime()*60*1000;
-        CountDownTimer timer = new CountDownTimer(totalTime + 1000, 1000) {
+        timer = new CountDownTimer(totalTime + 1000, 1000) {
             @Override
             public void onTick(long remainingTime) {
                 String time = String.format("%02d:%02d min",
@@ -205,8 +257,9 @@ public class QuestionsActivity extends AppCompatActivity {
 
             @Override
             public void onFinish() {
-
-
+                Intent intent = new Intent(QuestionsActivity.this, ScoreActivity.class);
+                startActivity(intent);
+                QuestionsActivity.this.finish();
             }
         };
         timer.start();
