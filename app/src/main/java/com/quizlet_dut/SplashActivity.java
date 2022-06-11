@@ -10,8 +10,10 @@ import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.quizlet_dut.R;
 
 public class SplashActivity extends AppCompatActivity {
@@ -34,6 +36,8 @@ public class SplashActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        DbQuery.g_firestore = FirebaseFirestore.getInstance();
+
         new Thread(){
             @Override
             public void run(){
@@ -44,9 +48,21 @@ public class SplashActivity extends AppCompatActivity {
                 }
 
                 if (mAuth.getCurrentUser() != null) {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    SplashActivity.this.finish();
+                    DbQuery.loadData(new MyCompeleteListenner() {
+                        @Override
+                        public void onSuccess() {
+                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            SplashActivity.this.finish();
+                        }
+
+                        @Override
+                        public void onFailure() {
+                            Toast.makeText(SplashActivity.this, "Something went wrong ! Please try again.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                 } else {
                     Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);

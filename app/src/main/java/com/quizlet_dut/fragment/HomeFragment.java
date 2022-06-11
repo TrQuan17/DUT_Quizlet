@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.quizlet_dut.CategoryAdapter;
 import com.quizlet_dut.CategoryModel;
+import com.quizlet_dut.DbQuery;
 import com.quizlet_dut.R;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     private GridView catView;
-    public static List<CategoryModel> catList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -28,19 +28,11 @@ public class HomeFragment extends Fragment {
 
         View view  = inflater.inflate(R.layout.fragment_home, container, false);
         catView = view.findViewById(R.id.cat_Grid);
-        loadCategories();
-        CategoryAdapter adapter = new CategoryAdapter(catList);
+//        loadCategories();
+        CategoryAdapter adapter = new CategoryAdapter(DbQuery.g_catList);
         catView.setAdapter(adapter);
 
         return view;
     }
 
-    private void loadCategories() {
-        catList.clear();
-        catList.add(new CategoryModel("1", "English", 50));
-        catList.add(new CategoryModel("2", "History", 30));
-        catList.add(new CategoryModel("3", "Music", 20));
-        catList.add(new CategoryModel("4", "Math", 100));
-        catList.add(new CategoryModel("5", "Chemistry", 40));
-    }
 }

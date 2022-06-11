@@ -6,9 +6,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.quizlet_dut.fragment.HomeFragment;
 
@@ -19,7 +22,8 @@ public class TestActivity extends AppCompatActivity {
 
     private RecyclerView testView;
     private Toolbar toolbar;
-    private List<TestModel> testList;
+    private TestAdapter adapter;
+    private Dialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,30 +35,45 @@ public class TestActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(true);
 
-        int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
+//        int cat_index = getIntent().getIntExtra("CAT_INDEX", 0);
 
-        getSupportActionBar().setTitle(HomeFragment.catList.get(cat_index).getName());
+
+        getSupportActionBar().setTitle(DbQuery.g_catList.get(DbQuery.g_selected_cat_index).getName());
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         testView = findViewById(R.id.test_recycler_view);
+
+        progressDialog = new Dialog(TestActivity.this);
+        progressDialog.setContentView(R.layout.dialog_layout);
+        progressDialog.setCancelable(false);
+        progressDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+        progressDialog.show();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         testView.setLayoutManager(layoutManager);
 
-        loadTestData();
+//        loadTestData();
 
-        TestAdapter adapter = new TestAdapter(testList);
-        testView.setAdapter(adapter);
-    }
+        DbQuery.loadTestData(new MyCompeleteListenner() {
+            @Override
+            public void onSuccess() {
 
-    private void loadTestData() {
-        testList = new ArrayList<>();
-        testList.add(new TestModel("1", 50, 20));
-        testList.add(new TestModel("2", 60, 20));
-        testList.add(new TestModel("3", 30, 15));
-        testList.add(new TestModel("4", 80, 30));
-        testList.add(new TestModel("5", 20, 15));
+                adapter = new TestAdapter(DbQuery.g_testList);
+                testView.setAdapter(adapter);
+
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure() {
+                progressDialog.dismiss();
+                Toast.makeText(TestActivity.this, "Something went wrong! Please try again. ",
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+
 
     }
 

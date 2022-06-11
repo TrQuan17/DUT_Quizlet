@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.widget.GridLayout;
+import android.widget.TextView;
 
 import com.quizlet_dut.fragment.AddFragment;
 import com.quizlet_dut.fragment.HomeFragment;
@@ -22,6 +23,8 @@ import com.quizlet_dut.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -35,25 +38,36 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private DrawerLayout mDrawerLayout;
     private BottomNavigationView mBottomNavigationView;
+    private TextView drawerProfileName, drawerProfileText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         mBottomNavigationView = findViewById(R.id.bottom_navigation);
 
         mDrawerLayout = findViewById(R.id.drawer_layout);
-//        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
-//                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-//        mDrawerLayout.addDrawerListener(toggle);
-//        toggle.syncState();
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar,
+                R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        mDrawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         NavigationView navigationView = findViewById(R.id.navigation_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        drawerProfileName = navigationView.getHeaderView(0).findViewById(R.id.nav_draw_name);
+        drawerProfileText = navigationView.getHeaderView(0).findViewById(R.id.nav_draw_img);
+
+        String name = DbQuery.myProfileModel.getName();
+
+        if (name != null) {
+            drawerProfileName.setText(name);
+            drawerProfileText.setText(name.toUpperCase().substring(0, 1));
+        }
 
         replaceFragment(new HomeFragment());
         navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);

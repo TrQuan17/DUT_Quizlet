@@ -1,5 +1,6 @@
 package com.quizlet_dut;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -53,11 +54,19 @@ public class TestAdapter extends RecyclerView.Adapter<TestAdapter.ViewHoder> {
             progressBar = itemView.findViewById(R.id.testProgressBar);
         }
 
-        private void setData(int pos, int progress){
+        private void setData(final int pos, int progress){
             testNo.setText("Test No: " + String.valueOf(pos + 1));
             topScore.setText(String.valueOf(progress) + " %");
-
             progressBar.setProgress(progress);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    DbQuery.g_selected_test_index = pos;
+                    Intent intent = new Intent(itemView.getContext(), StartTestActivity.class);
+                    itemView.getContext().startActivity(intent);
+
+                }
+            });
         }
 
     }
