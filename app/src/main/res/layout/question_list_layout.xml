@@ -125,6 +125,7 @@
 
 
     <GridView
+        android:id="@+id/ques_list_gv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"

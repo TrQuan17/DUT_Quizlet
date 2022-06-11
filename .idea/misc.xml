@@ -28,16 +28,22 @@
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.146" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
-        <entry key="app/src/main/res/layout/activity_questions.xml" value="0.4" />
+        <entry key="app/src/main/res/layout/activity_questions.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/layout/activity_splash.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_start_test.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_test.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/layout/alert_dialog_layout.xml" value="0.33" />
         <entry key="app/src/main/res/layout/cat_item_layout.xml" value="0.32135416666666666" />
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/layout_header_nav.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/layout/ques_grid_item.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/question_item_layout.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/question_list_layout.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/test_item_layout.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/test_time_layout.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.32135416666666666" />
       </map>
