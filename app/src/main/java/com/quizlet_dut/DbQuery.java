@@ -104,12 +104,14 @@ public class DbQuery {
 
                         long catCount = catListDoc.getLong("COUNT");
 
+
                         for (int i = 1; i <= catCount; i++) {
                             String catID = catListDoc.getString("CAT" + String.valueOf(i) + "_ID");
 
                             QueryDocumentSnapshot catDoc = docList.get(catID);
 
                             int noOfTest = catDoc.getLong("NO_OF_TESTS").intValue();
+
 
                             String catName = catDoc.getString("NAME");
 

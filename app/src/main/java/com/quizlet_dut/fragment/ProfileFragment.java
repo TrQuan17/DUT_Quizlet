@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ import com.quizlet_dut.R;
 
 public class ProfileFragment extends Fragment {
 
-    private Button buttonLogout;
+    private LinearLayout buttonLogout;
 
     @Nullable
     @Override
@@ -32,7 +33,7 @@ public class ProfileFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        buttonLogout = view.findViewById(R.id.button_logout);
+        buttonLogout = view.findViewById(R.id.logout_B);
 
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
