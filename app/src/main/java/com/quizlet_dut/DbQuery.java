@@ -35,8 +35,12 @@ public class DbQuery {
 
     public static List<QuestionModel> g_quesList = new ArrayList<>();
 
+<<<<<<< HEAD
     public static ProfileModel myProfileModel = new ProfileModel("NA", null);
     public static RankModel myPerformance = new RankModel(0, -1);
+=======
+    public static ProfileModel myProfileModel = new ProfileModel("NA", null, null);
+>>>>>>> 35918bbd699112643a0ea1c3bd27be6534568d6d
 
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
@@ -70,6 +74,30 @@ public class DbQuery {
                 });
     }
 
+    public static void saveProfileData(String name, String phone, MyCompeleteListenner compeleteListenner) {
+        Map<String, Object> profileData = new ArrayMap<>();
+        profileData.put("NAME", name);
+        if(phone != null) {
+            profileData.put("PHONE", phone);
+        }
+        g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid()).update(profileData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+
+                myProfileModel.setName(name);
+                if(phone!= null) {
+                    myProfileModel.setPhone(phone);
+                }
+                compeleteListenner.onSuccess();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                compeleteListenner.onFailure();
+            }
+        });
+    }
+
     public static void getUserData(MyCompeleteListenner myCompeleteListenner){
         g_firestore.collection("USERS").document(FirebaseAuth.getInstance().getUid())
                 .get()
@@ -79,7 +107,13 @@ public class DbQuery {
                         myProfileModel.setName(documentSnapshot.getString("NAME"));
                         myProfileModel.setEmail(documentSnapshot.getString("EMAIL_ID"));
 
+<<<<<<< HEAD
                         myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+=======
+                        if(documentSnapshot.getString("PHONE") != null) {
+                            myProfileModel.setPhone(documentSnapshot.getString("PHONE"));
+                        }
+>>>>>>> 35918bbd699112643a0ea1c3bd27be6534568d6d
 
                         myCompeleteListenner.onSuccess();
                     }
