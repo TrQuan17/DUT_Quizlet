@@ -1,13 +1,11 @@
-package com.quizlet_dut;
+package com.quizlet_dut.fragment;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +21,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.quizlet_dut.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -69,10 +68,6 @@ public class Add_Question extends AppCompatActivity {
                 String D = txtD.getText().toString();
                 String question = txtQuestion.getText().toString();
 
-                int indexOfCategoryChoosen =  listCategory.indexOf(spinnerCategory.getSelectedItem());
-                String category = listCAT_ID.get(indexOfCategoryChoosen);
-                String test = spinnerTEST_ID.getSelectedItem();
-
                 if(CheckEmptyInfor() == false){
                     Toast.makeText(Add_Question.this, "Please insert full information",Toast.LENGTH_SHORT).show();
                 }
@@ -83,9 +78,17 @@ public class Add_Question extends AppCompatActivity {
                         || (Integer.valueOf(txtAnswer.getText().toString()) < 1))){
                     Toast.makeText(Add_Question.this, "Answer must be int and value between(1-4)",Toast.LENGTH_SHORT).show();
                 }
+                else if((spinnerCategory.getSelectedItemPosition() == -1) || (spinnerTEST_ID.getSelectedItemPosition() == -1)){
+                    Toast.makeText(Add_Question.this, "U have to choose Category and Test",Toast.LENGTH_SHORT).show();
+                }
                 else{
                     int answer = Integer.parseInt(txtAnswer.getText().toString());
-                    postDataToFirestore(A,B,C,D,question,answer,test,category);
+
+                    int indexOfCategoryChoosen =  listCategory.indexOf(spinnerCategory.getSelectedItem());
+                    String category = listCAT_ID.get(indexOfCategoryChoosen);
+                    String test = spinnerTEST_ID.getSelectedItem();
+
+                    postQuestion_ToFirestore(A,B,C,D,question,answer,test,category);
                 }
             }
         });
@@ -185,7 +188,7 @@ public class Add_Question extends AppCompatActivity {
     }
 
     // đẩy dữ liệu lên FireStore
-    private void postDataToFirestore(String A, String B,String C,String D,String question,int answer,String test,String category){
+    private void postQuestion_ToFirestore(String A, String B,String C,String D,String question,int answer,String test,String category){
 
         Map<String, Object> data = new HashMap<>();
         data.put("A",A);

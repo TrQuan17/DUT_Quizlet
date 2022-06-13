@@ -21,7 +21,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.quizlet_dut.Add_Question;
 import com.quizlet_dut.R;
 
 import java.util.HashMap;
@@ -32,7 +31,7 @@ public class AddFragment extends Fragment {
     FirebaseFirestore firestore;
 
     EditText txtNumberOfTest,txtCategory;
-    Button btnAddCategory,btnOpenAddQuestion;;
+    Button btnAddCategory,btnOpenAddQuestion,btnShowAllQuestion,btnOpenAddTest;
     String id_category = "";
     static int count = 0;
     @Nullable
@@ -67,17 +66,36 @@ public class AddFragment extends Fragment {
                     Toast.makeText(getActivity(), "Number of test must be int ",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    postDataToFirestore(txtCategory.getText().toString(), Integer.parseInt(txtNumberOfTest.getText().toString()));
+                    postCategory_ToFirestore(txtCategory.getText().toString(), Integer.parseInt(txtNumberOfTest.getText().toString()));
                     clearText();
                 }
 
             }
         });
+
+        btnShowAllQuestion = view.findViewById(R.id.btn_showAllQuestion);
+        btnShowAllQuestion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), List_Question.class);
+                view.getContext().startActivity(intent);
+            }
+        });
+
+//        btnOpenAddTest = view.findViewById(R.id.btn_openAddTest);
+//        btnOpenAddTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), Add_Test.class);
+//                view.getContext().startActivity(intent);
+//            }
+//        });
+
         return view;
     }
 
     // đẩy dữ liệu lên FireStore
-    private void postDataToFirestore(String category, int no_of_quest){
+    private void postCategory_ToFirestore(String category, int no_of_quest){
         Map<String, Object> data = new HashMap<>();
         data.put("NAME",category);
         data.put("NO_OF_TESTS",no_of_quest);
