@@ -13,6 +13,7 @@ import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.firestore.WriteBatch;
 import com.quizlet_dut.Models.CategoryModel;
 import com.quizlet_dut.Models.QuestionModel;
@@ -122,6 +123,35 @@ public class DbQuery {
                 });
     }
 
+    public static void loadMyScores(MyCompeleteListenner compeleteListenner) {
+        g_firestore.collection("USERS")
+                .document(FirebaseAuth.getInstance().getUid())
+                .collection("USER_DATA")
+                .document("MY_SCORES")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        for (int i = 0; i < g_testList.size(); i++) {
+                            int top = 0;
+                            if(documentSnapshot.get(g_testList.get(i).getTestID()) != null) {
+                                top = documentSnapshot.getLong(g_testList.get(i).getTestID()).intValue();
+                            }
+
+                            g_testList.get(i).setTopScore(top);
+                        }
+
+                        compeleteListenner.onSuccess();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        compeleteListenner.onFailure();
+                    }
+                });
+    }
+
     public static void saveResult(int score, MyCompeleteListenner compeleteListenner) {
         WriteBatch batch = g_firestore.batch();
 
@@ -131,9 +161,12 @@ public class DbQuery {
         batch.update(userDoc, "TOTAL_SCORE", score);
 
         if(score > g_testList.get(g_selected_test_index).getTopScore()) {
+
             DocumentReference scoreDoc = userDoc.collection("USER_DATA")
                     .document("MY_SCORES");
-            batch.update(scoreDoc, g_testList.get(g_selected_test_index).getTestID(), score);
+            Map<String, Object> testData = new ArrayMap<>();
+            testData.put(g_testList.get(g_selected_test_index).getTestID(),score);
+            batch.set(scoreDoc, testData, SetOptions.merge());
         }
 
         batch.commit()
