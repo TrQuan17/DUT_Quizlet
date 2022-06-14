@@ -112,6 +112,7 @@ public class DbQuery {
 
 
 
+
                         if(documentSnapshot.getString("PHONE") != null) {
                             myProfileModel.setPhone(documentSnapshot.getString("PHONE"));
                         }
