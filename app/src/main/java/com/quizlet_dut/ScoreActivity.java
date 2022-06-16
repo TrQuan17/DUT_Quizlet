@@ -45,6 +45,7 @@ public class ScoreActivity extends AppCompatActivity {
 
         init();
         loadData();
+        setBookmarks();
 
         viewAnsB.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -139,6 +140,25 @@ public class ScoreActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
         });
+    }
+
+    private void setBookmarks() {
+        for(int i = 0; i < DbQuery.g_quesList.size(); i++) {
+            QuestionModel q = DbQuery.g_quesList.get(i);
+
+            if(q.isBookmarked()) {
+                if(!DbQuery.g_bmIdList.contains(q.getqID())) {
+                    DbQuery.g_bmIdList.add(q.getqID());
+                    DbQuery.myProfileModel.setBookmarksCount(DbQuery.g_bmIdList.size());
+                }
+            }
+            else {
+                if(DbQuery.g_bmIdList.contains(q.getqID())) {
+                    DbQuery.g_bmIdList.remove(q.getqID());
+                    DbQuery.myProfileModel.setBookmarksCount(DbQuery.g_bmIdList.size());
+                }
+            }
+        }
     }
 
     @Override

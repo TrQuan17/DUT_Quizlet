@@ -43,6 +43,7 @@ public class QuestionsActivity extends AppCompatActivity {
     private QuestionGridAdapter gridAdapter;
     private CountDownTimer timer;
     private long timeLeft;
+    private ImageView bookmarkB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +85,19 @@ public class QuestionsActivity extends AppCompatActivity {
         markImage = findViewById(R.id.mark_image);
         quesListGV = findViewById(R.id.ques_list_gv);
         drawCloseB = findViewById(R.id.drawerClose);
+        bookmarkB = findViewById(R.id.qa_bookmark);
         quesID =0;
 
         tvQuesID.setText("1/" + String.valueOf(g_quesList.size()));
         catNameTV.setText(g_catList.get(g_selected_cat_index).getName());
 
         g_quesList.get(0).setStatus(UNANSWERED);
+
+        if(g_quesList.get(0).isBookmarked()) {
+            bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_24);
+        } else {
+            bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+        }
     }
     private void setSnapHelper() {
         SnapHelper snapHelper = new PagerSnapHelper();
@@ -114,6 +122,12 @@ public class QuestionsActivity extends AppCompatActivity {
                 }
 
                 tvQuesID.setText(String.valueOf(quesID + 1) + "/" + String.valueOf(g_quesList.size()));
+
+                if(g_quesList.get(quesID).isBookmarked()) {
+                    bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_24);
+                } else {
+                    bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+                }
             }
 
             @Override
@@ -200,6 +214,13 @@ public class QuestionsActivity extends AppCompatActivity {
                 submitTest();
             }
         });
+
+        bookmarkB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToBookmark();
+            }
+        });
     }
 
     private void submitTest() {
@@ -271,5 +292,16 @@ public class QuestionsActivity extends AppCompatActivity {
             }
         };
         timer.start();
+    }
+
+    private void addToBookmark() {
+        if(g_quesList.get(quesID).isBookmarked()) {
+            g_quesList.get(quesID).setBookmark(false);
+            bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_border_24);
+        }
+        else {
+            g_quesList.get(quesID).setBookmark(true);
+            bookmarkB.setImageResource(R.drawable.ic_baseline_bookmark_added_24);
+        }
     }
 }

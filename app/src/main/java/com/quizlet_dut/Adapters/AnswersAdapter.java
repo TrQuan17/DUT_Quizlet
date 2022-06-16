@@ -74,6 +74,8 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
             if(selected == -1) {
                 result.setText("UN ANSWERED");
                 result.setTextColor(itemView.getContext().getResources().getColor(R.color.black));
+                setOptionColor(selected, R.color.normal);
+
             }
             else {
                 if(selected == correctAns) {
@@ -91,6 +93,11 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
         }
 
         private void setOptionColor(int selected , int color) {
+            optionA.setTextColor(itemView.getContext().getResources().getColor(R.color.normal));
+            optionB.setTextColor(itemView.getContext().getResources().getColor(R.color.normal));
+            optionC.setTextColor(itemView.getContext().getResources().getColor(R.color.normal));
+            optionD.setTextColor(itemView.getContext().getResources().getColor(R.color.normal));
+
             switch (selected) {
                 case 1:
                     optionA.setTextColor(itemView.getContext().getResources().getColor(color));
@@ -105,7 +112,6 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
                     optionD.setTextColor(itemView.getContext().getResources().getColor(color));
                     break;
 
-                default:
             }
         }
 
