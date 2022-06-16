@@ -11,6 +11,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
@@ -36,9 +37,14 @@ public class DbQuery {
 
     public static List<QuestionModel> g_quesList = new ArrayList<>();
 
+    public static List<RankModel> g_userList = new ArrayList<>();
+    public static int g_userCount = 0;
+    public static boolean isMeOnTopList = false;
 
-    public static ProfileModel myProfileModel = new ProfileModel("NA", null, "0123456789");
-    public static RankModel myPerformance = new RankModel(0, -1);
+    public static RankModel myPerformance = new RankModel("NULL",0, -1);
+
+    public static ProfileModel myProfileModel = new ProfileModel("NA", null, null);
+
 
     public static final int NOT_VISITED = 0;
     public static final int UNANSWERED = 1;
@@ -106,12 +112,14 @@ public class DbQuery {
                         myProfileModel.setEmail(documentSnapshot.getString("EMAIL_ID"));
 
 
-                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+
 
                         if(documentSnapshot.getString("PHONE") != null) {
                             myProfileModel.setPhone(documentSnapshot.getString("PHONE"));
                         }
 
+                        myPerformance.setScore(documentSnapshot.getLong("TOTAL_SCORE").intValue());
+                        myPerformance.setName(documentSnapshot.getString("NAME"));
                         myCompeleteListenner.onSuccess();
                     }
                 })
@@ -123,6 +131,7 @@ public class DbQuery {
                 });
     }
 
+<<<<<<< HEAD
     public static void loadMyScores(MyCompeleteListenner compeleteListenner) {
         g_firestore.collection("USERS")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -142,11 +151,66 @@ public class DbQuery {
                         }
 
                         compeleteListenner.onSuccess();
+=======
+    public static void getTopUsers(final MyCompeleteListenner compeleteListenner) {
+        g_userList.clear();
+
+        String myUID = FirebaseAuth.getInstance().getUid();
+        g_firestore.collection("USERS")
+                .whereGreaterThan("TOTAL_SCORE", 0)
+                .orderBy("TOTAL_SCORE", Query.Direction.DESCENDING)
+                .limit(20)
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        int rank = 1;
+                        for (QueryDocumentSnapshot doc : queryDocumentSnapshots
+                             ) {
+                            g_userList.add(new RankModel(
+                                    doc.getString("NAME"),
+                                    doc.getLong("TOTAL_SCORE").intValue(),
+                                    rank
+                            ));
+                            if(myUID.compareTo(doc.getId()) == 0) {
+                                isMeOnTopList = true;
+                                myPerformance.setRank(rank);
+                            }
+
+                            rank++;
+                        }
+                        compeleteListenner.onSuccess();
+
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+
+                        compeleteListenner.onFailure();
+                    }
+                });
+    }
+    public static void getUsersCount(final MyCompeleteListenner compeleteListenner) {
+        g_firestore.collection("USERS").document("TOTAL_USERS")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        g_userCount = documentSnapshot.getLong("COUNT").intValue();
+                        compeleteListenner.onSuccess();
+
+>>>>>>> develop
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
                         compeleteListenner.onFailure();
                     }
                 });
@@ -267,7 +331,18 @@ public class DbQuery {
         loadCategories(new MyCompeleteListenner() {
             @Override
             public void onSuccess() {
-                getUserData(myCompeleteListenner);
+                getUserData(new MyCompeleteListenner() {
+                    @Override
+                    public void onSuccess() {
+                        getUsersCount(myCompeleteListenner);
+                    }
+
+                    @Override
+                    public void onFailure() {
+
+                        myCompeleteListenner.onFailure();
+                    }
+                });
             }
 
             @Override
