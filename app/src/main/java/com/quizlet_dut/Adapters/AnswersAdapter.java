@@ -64,7 +64,7 @@ public class AnswersAdapter extends RecyclerView.Adapter<AnswersAdapter.ViewHold
         }
 
         private void setData(int pos, String ques, String A, String B, String C, String D, int selected, int correctAns) {
-            quesNo.setText("Question No. "+ String.valueOf(pos+1));
+            quesNo.setText("QuestionAdd No. "+ String.valueOf(pos+1));
             question.setText(ques);
             optionA.setText("A. " + A);
             optionB.setText("B. " + B);

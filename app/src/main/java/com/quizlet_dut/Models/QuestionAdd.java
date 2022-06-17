@@ -1,6 +1,6 @@
-package com.quizlet_dut.model;
+package com.quizlet_dut.Models;
 
-public class Question {
+public class QuestionAdd {
 //    private int true_answer;
     private String test;
     private String question;
@@ -13,7 +13,7 @@ public class Question {
     private String name_category;
     private String id_question;
 
-    public Question(String test, String question, String category, String answer_A, String answer_B, String answer_C, String answer_D, long true_answer, String name_category, String id_question) {
+    public QuestionAdd(String test, String question, String category, String answer_A, String answer_B, String answer_C, String answer_D, long true_answer, String name_category, String id_question) {
         this.test = test;
         this.question = question;
         this.category = category;

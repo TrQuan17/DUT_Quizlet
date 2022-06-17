@@ -128,7 +128,7 @@ public class Question_detail extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Question_detail.this, "Delete Success, Back to List Question to Test",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Question_detail.this, "Delete Success, Back to List QuestionAdd to Test",Toast.LENGTH_SHORT).show();
                         Log.w("Debug", "Delete Success");
                     }
                 })

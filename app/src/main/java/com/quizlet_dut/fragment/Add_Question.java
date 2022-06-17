@@ -205,7 +205,7 @@ public class Add_Question extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.w("Debug", "Add Success");
-                        Toast.makeText(Add_Question.this, "Add New Question Success",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Add_Question.this, "Add New QuestionAdd Success",Toast.LENGTH_SHORT).show();
                         clearText();
                     }
                 })
@@ -213,7 +213,7 @@ public class Add_Question extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w("Debug", "Error adding document", e);
-                        Toast.makeText(Add_Question.this, "Add New Question Fail",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Add_Question.this, "Add New QuestionAdd Fail",Toast.LENGTH_SHORT).show();
                     }
                 });
     }
