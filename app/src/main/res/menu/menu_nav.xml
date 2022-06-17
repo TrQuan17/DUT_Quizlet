@@ -25,6 +25,12 @@
             android:icon="@drawable/ic_baseline_add_circle_outline_24">
         </item>
 
+        <item
+            android:id="@+id/nav_bookmark"
+            android:title="Book Marks"
+            android:icon="@drawable/ic_baseline_bookmark_24">
+        </item>
+
     </group>
     <item android:title="@string/nav_account">
         <menu>

@@ -29,4 +29,5 @@
         android:title="My account"
         android:icon="@drawable/ic_baseline_person_24">
     </item>
+
 </menu>

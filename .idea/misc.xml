@@ -38,8 +38,11 @@
         <entry key="app/src/main/res/drawable/ic_baseline_question_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_google_logo.xml" value="0.146" />
         <entry key="app/src/main/res/drawable/round_view.xml" value="0.159" />
+        <entry key="app/src/main/res/layout/activity_answers.xml" value="0.19375" />
+        <entry key="app/src/main/res/layout/activity_book_marks.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.2694746376811594" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.32135416666666666" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22478386167146974" />
+        <entry key="app/src/main/res/layout/activity_my_profile.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/activity_questions.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_score.xml" value="0.2692307692307692" />
         <entry key="app/src/main/res/layout/activity_sign_up.xml" value="0.2694746376811594" />
@@ -51,6 +54,7 @@
         <entry key="app/src/main/res/layout/dialog_layout.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_account.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/fragment_add.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.1484375" />
         <entry key="app/src/main/res/layout/layout_header_nav.xml" value="0.2694746376811594" />
         <entry key="app/src/main/res/layout/ques_grid_item.xml" value="0.19375" />
@@ -58,6 +62,7 @@
         <entry key="app/src/main/res/layout/question_list_layout.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/test_item_layout.xml" value="0.19375" />
         <entry key="app/src/main/res/layout/test_time_layout.xml" value="0.2694746376811594" />
+        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/menu/menu_nav.xml" value="0.32135416666666666" />
       </map>
     </option>

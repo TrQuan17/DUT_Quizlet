@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -116,6 +117,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_my_profile) {
             openProfileFragment();
             mBottomNavigationView.getMenu().findItem(R.id.bottom_profile).setChecked(true);
+        } else if(id == R.id.nav_bookmark) {
+            Intent intent = new Intent(MainActivity.this, BookMarksActivity.class);
+            startActivity(intent);
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

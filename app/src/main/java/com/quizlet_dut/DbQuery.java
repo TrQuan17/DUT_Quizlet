@@ -36,14 +36,14 @@ public class DbQuery {
     public static int g_selected_test_index = 0;
 
     public static List<String> g_bmIdList = new ArrayList<>();
-
+    public static List<QuestionModel> g_bookmarksList = new ArrayList<>();
     public static List<QuestionModel> g_quesList = new ArrayList<>();
 
     public static List<RankModel> g_userList = new ArrayList<>();
     public static int g_userCount = 0;
     public static boolean isMeOnTopList = false;
 
-    public static RankModel myPerformance = new RankModel("NULL",0, -1);
+    public static RankModel myPerformance = new RankModel("NULL",0, 0);
 
     public static ProfileModel myProfileModel = new ProfileModel("NA", null, null, 0);
 
@@ -52,6 +52,8 @@ public class DbQuery {
     public static final int UNANSWERED = 1;
     public static final int ANSWERED = 2;
     public static final int REVIEW = 3;
+
+    private static int temp;
 
     public static void createUserData(String email, String name, MyCompeleteListenner compeleteListenner) {
         Map<String, Object> userData = new ArrayMap<>();
@@ -186,6 +188,50 @@ public class DbQuery {
                         myCompeleteListenner.onFailure();
                     }
                 });
+    }
+
+    public static void loadBookmarks(MyCompeleteListenner compeleteListenner) {
+        g_bookmarksList.clear();
+
+        temp = 0;
+
+        for(int i = 0; i < g_bmIdList.size(); i++) {
+            String docID = g_bmIdList.get(i);
+
+            g_firestore.collection("Questions")
+                    .document(docID)
+                    .get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                        @Override
+                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                            if(documentSnapshot.exists()) {
+                                g_bookmarksList.add(new QuestionModel(
+                                        documentSnapshot.getId(),
+                                        documentSnapshot.getString("QUESTION"),
+                                        documentSnapshot.getString("A"),
+                                        documentSnapshot.getString("B"),
+                                        documentSnapshot.getString("C"),
+                                        documentSnapshot.getString("D"),
+                                        documentSnapshot.getLong("ANSWER").intValue(),
+                                        -1,
+                                        -1,
+                                        false
+                                ));
+                            }
+
+                            temp++;
+                            if(temp == g_bmIdList.size()) {
+                                compeleteListenner.onSuccess();
+                            }
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            compeleteListenner.onFailure();
+                        }
+                    });
+        }
     }
 
     public static void getTopUsers(final MyCompeleteListenner compeleteListenner) {

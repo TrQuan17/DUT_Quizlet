@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.quizlet_dut.BookMarksActivity;
 import com.quizlet_dut.DbQuery;
 import com.quizlet_dut.LoginActivity;
 import com.quizlet_dut.MainActivity;
@@ -44,7 +45,7 @@ public class ProfileFragment extends Fragment {
     private Dialog progressDialog;
     private TextView dialogText;
 
-    private BottomNavigationView bottomNavigationView;
+//    private BottomNavigationView bottomNavigationView;
 
 
     @Nullable
@@ -120,7 +121,7 @@ public class ProfileFragment extends Fragment {
                 FirebaseAuth.getInstance().signOut();
 
                 GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestIdToken(getString(R.string.default_web_client_id))
+                        .requestIdToken("433128876677-rdtbcckc4olp235sh153ef4kan9jaqfv.apps.googleusercontent.com")
                         .requestEmail()
                         .build();
 
@@ -140,7 +141,8 @@ public class ProfileFragment extends Fragment {
         bookmarkB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getContext(), BookMarksActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -156,7 +158,7 @@ public class ProfileFragment extends Fragment {
         leaderB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //bottomNavigationView.setSelectedItemId(R.id.navigation_leaderboard);
+//                bottomNavigationView.setSelectedItemId(R.id.nav);
             }
         });
 
@@ -172,7 +174,7 @@ public class ProfileFragment extends Fragment {
         leaderB = view.findViewById(R.id.leaderboard);
         bookmarkB = view.findViewById(R.id.bookmark);
         profileB = view.findViewById(R.id.profile);
-        //bottomNavigationView = getActivity().findViewById(R.id.bottom_nav_bar);
+//        bottomNavigationView = getActivity().findViewById(R.id.bottom_navigation);
 
 
     }
