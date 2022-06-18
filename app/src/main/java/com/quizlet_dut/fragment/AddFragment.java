@@ -30,7 +30,7 @@ public class AddFragment extends Fragment {
 
     FirebaseFirestore firestore;
 
-    EditText txtNumberOfTest,txtCategory;
+    EditText txtCategory;
     Button btnAddCategory,btnOpenAddQuestion,btnShowAllQuestion,btnOpenAddTest;
     String id_category = "";
     static int count = 0;
@@ -41,7 +41,7 @@ public class AddFragment extends Fragment {
 
         firestore = FirebaseFirestore.getInstance();
 
-        txtNumberOfTest = view.findViewById(R.id.txt_NoOfTest);
+
         txtCategory = view.findViewById(R.id.txt_category);
 
         count = GetCountFromCategories();
@@ -62,11 +62,8 @@ public class AddFragment extends Fragment {
                 if(CheckEmptyInfor() == false){
                     Toast.makeText(view.getContext(), "Please insert full information",Toast.LENGTH_SHORT).show();
                 }
-                else if(isNumeric(txtNumberOfTest.getText().toString()) == false){
-                    Toast.makeText(getActivity(), "Number of test must be int ",Toast.LENGTH_SHORT).show();
-                }
                 else{
-                    postCategory_ToFirestore(txtCategory.getText().toString(), Integer.parseInt(txtNumberOfTest.getText().toString()));
+                    postCategory_ToFirestore(txtCategory.getText().toString(), 0);
                     clearText();
                 }
 
@@ -82,14 +79,14 @@ public class AddFragment extends Fragment {
             }
         });
 
-//        btnOpenAddTest = view.findViewById(R.id.btn_openAddTest);
-//        btnOpenAddTest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(view.getContext(), Add_Test.class);
-//                view.getContext().startActivity(intent);
-//            }
-//        });
+        btnOpenAddTest = view.findViewById(R.id.btn_openAddTest);
+        btnOpenAddTest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), Add_Test.class);
+                view.getContext().startActivity(intent);
+            }
+        });
 
         return view;
     }
@@ -162,13 +159,12 @@ public class AddFragment extends Fragment {
 
     private void clearText(){
         txtCategory.setText("");
-        txtNumberOfTest.setText("");
     }
 
     private boolean CheckEmptyInfor(){
 
         String empty = "";
-        if( txtCategory.getText().toString().equals(empty) || txtNumberOfTest.getText().toString().equals(empty)) {
+        if( txtCategory.getText().toString().equals(empty)) {
 
             return false;
         }

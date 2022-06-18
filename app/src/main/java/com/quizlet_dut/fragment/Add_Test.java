@@ -1,4 +1,4 @@
-package com.quizlet_dut;
+package com.quizlet_dut.fragment;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.quizlet_dut.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,22 +104,22 @@ public class Add_Test extends AppCompatActivity {
 
     // đẩy dữ liệu lên FireStore
     private void postTest_ToFirestore(String category_id,String test_id,long time){
-        // nếu số lượng test trong TESTS_INFO ít hơn số lượng test trong NO_OF_TESTS( number < 0)
-        // thì chỉ cần add test mới vào TESTS_INFO, nếu nếu số lượng test trong TESTS_INFO bằng số lượng test trong NO_OF_TESTS( number < 0)
-        // thì vừa add test mới vào TESTS_INFO và đồng thời tăng số lượng test lên 1 (NO_OF_TESTS++)
-        long number = NO_OF_TESTS - number_of_test_InTestInfo;
-        if(number > 0){
-            number_of_test_InTestInfo ++;
-            String Test_ID = "TEST"+String.valueOf(number_of_test_InTestInfo)+"_ID";
-            String Test_Time=  "TEST"+String.valueOf(number_of_test_InTestInfo)+"_TIME";
+        if(NO_OF_TESTS == 0){
+            NO_OF_TESTS ++;
+            String Test_ID = "TEST"+String.valueOf(NO_OF_TESTS)+"_ID";
+            String Test_Time=  "TEST"+String.valueOf(NO_OF_TESTS)+"_TIME";
             Map<String, Object> data = new HashMap<>();
             data.put(Test_ID,test_id);
             data.put(Test_Time,time);
 
             //thêm Test mới vào TESTS_INFO
-            firestore.collection("QUIZ").document(category_id).collection("TESTS_LIST").document("TESTS_INFO").update(data);
+            firestore.collection("QUIZ").document(category_id).collection("TESTS_LIST").document("TESTS_INFO").set(data);
+
+            //dòng tiếp theo update NO_OF_TESTS tăng thêm 1 tương ứng khi thêm 1 Test mới
+            firestore.collection("QUIZ").document(category_id).update("NO_OF_TESTS",NO_OF_TESTS);
+
             clearText();
-            Toast.makeText(Add_Test.this, "Add TEST Success, U have to add more " + number + " of Test",Toast.LENGTH_SHORT).show();
+            Toast.makeText(Add_Test.this, "Add TEST Success",Toast.LENGTH_SHORT).show();
         }
         else{
             NO_OF_TESTS ++;
