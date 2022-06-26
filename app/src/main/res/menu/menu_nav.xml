@@ -7,11 +7,11 @@
             android:icon="@drawable/ic_baseline_home_24">
         </item>
 
-        <item
-            android:id="@+id/nav_search"
-            android:title="@string/nav_search"
-            android:icon="@drawable/ic_baseline_search_24">
-        </item>
+<!--        <item-->
+<!--            android:id="@+id/nav_search"-->
+<!--            android:title="@string/nav_search"-->
+<!--            android:icon="@drawable/ic_baseline_search_24">-->
+<!--        </item>-->
 
         <item
             android:id="@+id/nav_rank"

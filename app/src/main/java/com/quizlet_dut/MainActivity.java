@@ -81,9 +81,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 if (id == R.id.bottom_home) {
                     openHomeFragment();
                     navigationView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                } else if (id == R.id.bottom_search) {
-                    openSearchFragment();
-                    navigationView.getMenu().findItem(R.id.nav_search).setChecked(true);
+//                } else if (id == R.id.bottom_search) {
+//                    openSearchFragment();
+//                    navigationView.getMenu().findItem(R.id.nav_search).setChecked(true);
                 } else if (id == R.id.bottom_rank) {
                     openRankFragment();
                     navigationView.getMenu().findItem(R.id.nav_rank).setChecked(true);
@@ -105,9 +105,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_home){
             openHomeFragment();
             mBottomNavigationView.getMenu().findItem(R.id.bottom_home).setChecked(true);
-        } else if (id == R.id.nav_search) {
-            openSearchFragment();
-            mBottomNavigationView.getMenu().findItem(R.id.bottom_search).setChecked(true);
+//        } else if (id == R.id.nav_search) {
+//            openSearchFragment();
+//            mBottomNavigationView.getMenu().findItem(R.id.bottom_search).setChecked(true);
         } else if (id == R.id.nav_rank){
             openRankFragment();
             mBottomNavigationView.getMenu().findItem(R.id.bottom_rank).setChecked(true);
