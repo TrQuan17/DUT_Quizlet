@@ -51,7 +51,7 @@ public class SplashActivity extends AppCompatActivity {
                     DbQuery.loadData(new MyCompeleteListenner() {
                         @Override
                         public void onSuccess() {
-                            Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                            Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                             startActivity(intent);
                             SplashActivity.this.finish();
                         }
@@ -64,7 +64,7 @@ public class SplashActivity extends AppCompatActivity {
                     });
 
                 } else {
-                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
                     startActivity(intent);
                     SplashActivity.this.finish();
                 }
