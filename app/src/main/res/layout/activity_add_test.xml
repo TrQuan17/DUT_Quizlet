@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Test Of Question"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="28dp"></TextView>
+    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+        android:id="@+id/spinner_category_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:smsp_errorText="This is error text. You can show it as single line or multiple lines using attr smsp_multilineError"
+        app:smsp_floatingLabelColor="#1976D2"
+        app:smsp_floatingLabelText="Floating Label Text"
+        app:smsp_hint="Choose category u want it"
+        app:smsp_hintColor="#388E3C"
+        app:smsp_itemColor="#512DA8"
+        app:smsp_itemListColor="#7C4DFF"
+        app:smsp_itemListHintBackgroundColor="#808080"
+        app:smsp_itemListHintColor="#FFFFFF"
+        app:smsp_multilineError="false"
+        app:smsp_selectedItemListColor="#FF5252" />
+    <EditText
+        android:id="@+id/txt_TestID"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Test ID title"></EditText>
+    <EditText
+        android:id="@+id/txt_Time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Time title"></EditText>
+    <Button
+        android:id="@+id/btn_AddTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Test"></Button>
+
+</LinearLayout>

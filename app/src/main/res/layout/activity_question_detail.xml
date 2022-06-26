@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Question"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="28dp"></TextView>
+    <EditText
+        android:id="@+id/txt_Quest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Question title"></EditText>
+    <EditText
+        android:id="@+id/txt_answerA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="A answer"></EditText>
+    <EditText
+        android:id="@+id/txt_answerB"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="B answer"></EditText>
+    <EditText
+        android:id="@+id/txt_answerC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="C answer"></EditText>
+    <EditText
+        android:id="@+id/txt_answerD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="D answer"></EditText>
+    <EditText
+        android:id="@+id/txt_TrueAnswer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="True Answer title"></EditText>
+    <Button
+        android:id="@+id/btn_Edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit"></Button>
+    <Button
+        android:id="@+id/btn_Delete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete"></Button>
+
+</LinearLayout>

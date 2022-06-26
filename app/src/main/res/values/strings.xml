@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">DUT_Quizlet</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_search">Search</string>
+    <string name="nav_rank">Rank</string>
+    <string name="nav_add">Add</string>
+    <string name="nav_account">Account</string>
+    <string name="nav_my_profile">Account</string>
+    <string name="nav_change_password">Change Password</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
